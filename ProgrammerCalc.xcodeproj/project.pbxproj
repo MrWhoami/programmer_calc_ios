@@ -7,26 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E2545D51CFEC29600716E19 /* ProgrammerCalcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2545D41CFEC29600716E19 /* ProgrammerCalcTests.swift */; };
 		1E257EB01CF4255700F533D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E257EAF1CF4255700F533D6 /* AppDelegate.swift */; };
 		1E257EB21CF4255700F533D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E257EB11CF4255700F533D6 /* ViewController.swift */; };
 		1E257EB51CF4255700F533D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E257EB31CF4255700F533D6 /* Main.storyboard */; };
 		1E257EBA1CF4255700F533D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E257EB81CF4255700F533D6 /* LaunchScreen.storyboard */; };
-		1E257EC41CF58B3300F533D6 /* ControlPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E257EC31CF58B3300F533D6 /* ControlPad.swift */; };
+		1EA967F91CFC364D00F48C0D /* Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA967F81CFC364D00F48C0D /* Calculation.swift */; };
 		1EC221741CF7F98800F31DEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EC221731CF7F98800F31DEC /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1E2545D71CFEC29600716E19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E257EA41CF4255700F533D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E257EAB1CF4255700F533D6;
+			remoteInfo = ProgrammerCalc;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		1E2545D21CFEC29600716E19 /* ProgrammerCalcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgrammerCalcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E2545D41CFEC29600716E19 /* ProgrammerCalcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammerCalcTests.swift; sourceTree = "<group>"; };
+		1E2545D61CFEC29600716E19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E257EAC1CF4255700F533D6 /* ProgrammerCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgrammerCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E257EAF1CF4255700F533D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E257EB11CF4255700F533D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1E257EB41CF4255700F533D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1E257EB91CF4255700F533D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E257EBB1CF4255700F533D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E257EC31CF58B3300F533D6 /* ControlPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlPad.swift; sourceTree = "<group>"; };
+		1EA967F81CFC364D00F48C0D /* Calculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculation.swift; sourceTree = "<group>"; };
 		1EC221731CF7F98800F31DEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1E2545CF1CFEC29600716E19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1E257EA91CF4255700F533D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -37,10 +58,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E2545D31CFEC29600716E19 /* ProgrammerCalcTests */ = {
+			isa = PBXGroup;
+			children = (
+				1E2545D41CFEC29600716E19 /* ProgrammerCalcTests.swift */,
+				1E2545D61CFEC29600716E19 /* Info.plist */,
+			);
+			path = ProgrammerCalcTests;
+			sourceTree = "<group>";
+		};
 		1E257EA31CF4255700F533D6 = {
 			isa = PBXGroup;
 			children = (
 				1E257EAE1CF4255700F533D6 /* ProgrammerCalc */,
+				1E2545D31CFEC29600716E19 /* ProgrammerCalcTests */,
 				1E257EAD1CF4255700F533D6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				1E257EAC1CF4255700F533D6 /* ProgrammerCalc.app */,
+				1E2545D21CFEC29600716E19 /* ProgrammerCalcTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,8 +90,8 @@
 			children = (
 				1EC221731CF7F98800F31DEC /* Assets.xcassets */,
 				1E257EAF1CF4255700F533D6 /* AppDelegate.swift */,
+				1EA967F81CFC364D00F48C0D /* Calculation.swift */,
 				1E257EB11CF4255700F533D6 /* ViewController.swift */,
-				1E257EC31CF58B3300F533D6 /* ControlPad.swift */,
 				1E257EB31CF4255700F533D6 /* Main.storyboard */,
 				1E257EB81CF4255700F533D6 /* LaunchScreen.storyboard */,
 				1E257EBB1CF4255700F533D6 /* Info.plist */,
@@ -70,6 +102,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1E2545D11CFEC29600716E19 /* ProgrammerCalcTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E2545DB1CFEC29600716E19 /* Build configuration list for PBXNativeTarget "ProgrammerCalcTests" */;
+			buildPhases = (
+				1E2545CE1CFEC29600716E19 /* Sources */,
+				1E2545CF1CFEC29600716E19 /* Frameworks */,
+				1E2545D01CFEC29600716E19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E2545D81CFEC29600716E19 /* PBXTargetDependency */,
+			);
+			name = ProgrammerCalcTests;
+			productName = ProgrammerCalcTests;
+			productReference = 1E2545D21CFEC29600716E19 /* ProgrammerCalcTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1E257EAB1CF4255700F533D6 /* ProgrammerCalc */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E257EBE1CF4255700F533D6 /* Build configuration list for PBXNativeTarget "ProgrammerCalc" */;
@@ -97,6 +147,10 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Joel Liu";
 				TargetAttributes = {
+					1E2545D11CFEC29600716E19 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 1E257EAB1CF4255700F533D6;
+					};
 					1E257EAB1CF4255700F533D6 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 3F7GQ68DJK;
@@ -117,11 +171,19 @@
 			projectRoot = "";
 			targets = (
 				1E257EAB1CF4255700F533D6 /* ProgrammerCalc */,
+				1E2545D11CFEC29600716E19 /* ProgrammerCalcTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1E2545D01CFEC29600716E19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1E257EAA1CF4255700F533D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -135,17 +197,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1E2545CE1CFEC29600716E19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E2545D51CFEC29600716E19 /* ProgrammerCalcTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1E257EA81CF4255700F533D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1E257EB21CF4255700F533D6 /* ViewController.swift in Sources */,
+				1EA967F91CFC364D00F48C0D /* Calculation.swift in Sources */,
 				1E257EB01CF4255700F533D6 /* AppDelegate.swift in Sources */,
-				1E257EC41CF58B3300F533D6 /* ControlPad.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1E2545D81CFEC29600716E19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E257EAB1CF4255700F533D6 /* ProgrammerCalc */;
+			targetProxy = 1E2545D71CFEC29600716E19 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1E257EB31CF4255700F533D6 /* Main.storyboard */ = {
@@ -167,6 +245,30 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1E2545D91CFEC29600716E19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ProgrammerCalcTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrwhoami.ProgrammerCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProgrammerCalc.app/ProgrammerCalc";
+			};
+			name = Debug;
+		};
+		1E2545DA1CFEC29600716E19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ProgrammerCalcTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrwhoami.ProgrammerCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProgrammerCalc.app/ProgrammerCalc";
+			};
+			name = Release;
+		};
 		1E257EBC1CF4255700F533D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -283,6 +385,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1E2545DB1CFEC29600716E19 /* Build configuration list for PBXNativeTarget "ProgrammerCalcTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E2545D91CFEC29600716E19 /* Debug */,
+				1E2545DA1CFEC29600716E19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		1E257EA71CF4255700F533D6 /* Build configuration list for PBXProject "ProgrammerCalc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
