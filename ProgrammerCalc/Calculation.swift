@@ -9,7 +9,6 @@
 import Foundation
 
 enum CalculatorError: ErrorType {
-    case InvalidOperator(symbol: String)
     case InvalidOperand(operand: UInt64)
     case OperandTooLarge
 }
@@ -18,8 +17,25 @@ class CalculationStack {
     private var operandStack = [UInt64]()
     private var operatorStack =  [String]()
     
+    // The priority is based on the priority of Swift operators.
+    // Reference: https://developer.apple.com/library/ios/documentation/Swift/Reference/Swift_StandardLibrary_Operators/index.html#//apple_ref/doc/uid/TP40016054
+    private func getPriority(symbol: String) -> Int {
+        switch symbol {
+        case "X<<Y", "X>>Y":
+            return 160
+        case "×", "÷", "AND":
+            return 150
+        case "+", "-", "OR", "NOR", "XOR":
+            return 140
+        default:
+            print("Unknown operator in getPriority: \(symbol)\n")
+            return 0
+        }
+    }
+    
     // Get a new operand and a operator.
-    // Accept "+", "-", "*", "/", "X<<Y", "X>>Y", "=" as operators.
+    // Accept "+", "-", "*", "/", 
+    // "X<<Y", "X>>Y", "=" , "AND", "OR", "NOR", "XOR" as operators.
     func pushOperator(operand: UInt64, symbol: String) throws -> UInt64 {
         // Get the previous operand first.
         operandStack.append(operand)
@@ -37,8 +53,9 @@ class CalculationStack {
         }
         
         // If this is not the first operator, push it into the stack.
-        // But firstly, if this is a "+" or "-", we can clear the stack and calculate now.
-        if symbol == "+" || symbol == "-"  {
+        // Before push the symbol into the stack, check priority first.
+        // If the priority is the lowest(140), just calculate the expression first.
+        if getPriority(symbol) == 140 {
             try calculate()
         }
         operatorStack.append(symbol)
@@ -74,8 +91,18 @@ class CalculationStack {
                 result = operandA << operandB
             case "X>>Y":
                 result = operandA >> operandB
+            case "AND":
+                result = operandA & operandB
+            case "OR":
+                result = operandA | operandB
+            case "XOR":
+                result = operandA ^ operandB
+            case "NOR":
+                result = ~(operandA | operandB)
             default:
-                throw CalculatorError.InvalidOperator(symbol: symbol)
+                // In fact, we can never reach here since all the operators are provided.
+                print("Unknown operator in getPriority: \(symbol)\n")
+                result = 0
             }
             operandStack.append(result)
         }
