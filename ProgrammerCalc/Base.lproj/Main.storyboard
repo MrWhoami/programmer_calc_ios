@@ -1276,6 +1276,9 @@
                                         <include reference="SYu-nW-DS0"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="printingModeControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="y0Q-ec-n7c"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.57647058823529407" green="0.57647058823529407" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
@@ -1340,15 +1343,15 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="button8" destination="Yh4-LR-hUB" id="ojc-ey-S3O"/>
-                        <outlet property="button9" destination="2LR-kj-5EA" id="XCB-Y5-NQL"/>
-                        <outlet property="buttonA" destination="03d-6P-h6K" id="Za0-KG-Lq9"/>
-                        <outlet property="buttonB" destination="5YX-dw-pnB" id="t5H-7q-rW1"/>
-                        <outlet property="buttonC" destination="9VS-Br-BQR" id="yEQ-i2-et7"/>
-                        <outlet property="buttonD" destination="tpE-MX-j57" id="nFh-TN-6b4"/>
-                        <outlet property="buttonE" destination="Jmf-tg-CC4" id="kHK-Zm-gNh"/>
-                        <outlet property="buttonF" destination="BZn-xN-ROe" id="0Vx-2e-C3P"/>
-                        <outlet property="buttonFF" destination="jdK-A6-MwO" id="I9q-PX-4lh"/>
+                        <outlet property="button8" destination="Yh4-LR-hUB" id="GUg-Uf-mB8"/>
+                        <outlet property="button9" destination="2LR-kj-5EA" id="VmS-Bp-rHV"/>
+                        <outlet property="buttonA" destination="03d-6P-h6K" id="FiA-HO-zdR"/>
+                        <outlet property="buttonB" destination="5YX-dw-pnB" id="EsT-wa-0hO"/>
+                        <outlet property="buttonC" destination="9VS-Br-BQR" id="vum-eZ-Aq1"/>
+                        <outlet property="buttonD" destination="tpE-MX-j57" id="faa-uy-mtJ"/>
+                        <outlet property="buttonE" destination="Jmf-tg-CC4" id="UqZ-op-7Bb"/>
+                        <outlet property="buttonF" destination="BZn-xN-ROe" id="LkD-4p-RrC"/>
+                        <outlet property="buttonFF" destination="jdK-A6-MwO" id="13Q-XR-Wy2"/>
                         <outlet property="characterScreen" destination="iG8-xf-BpZ" id="W3N-7b-U9B"/>
                         <outlet property="numberScreen" destination="gL8-kz-Avm" id="cQv-SC-Puh"/>
                     </connections>

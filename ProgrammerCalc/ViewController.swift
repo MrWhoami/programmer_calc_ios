@@ -25,6 +25,8 @@ class ViewController: UIViewController {
     var printMode = 10
     var expression = CalculationStack()
     var justTouchedOperator = false
+    let disabledColor = UIColor.lightGrayColor()
+    let enabledColor = UIColor.blackColor()
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         // Change the status bar color
@@ -33,6 +35,24 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        button8.setTitleColor(enabledColor, forState: UIControlState.Normal)
+        button9.setTitleColor(enabledColor, forState: UIControlState.Normal)
+        buttonA.setTitleColor(enabledColor, forState: UIControlState.Normal)
+        buttonB.setTitleColor(enabledColor, forState: UIControlState.Normal)
+        buttonC.setTitleColor(enabledColor, forState: UIControlState.Normal)
+        buttonD.setTitleColor(enabledColor, forState: UIControlState.Normal)
+        buttonE.setTitleColor(enabledColor, forState: UIControlState.Normal)
+        buttonF.setTitleColor(enabledColor, forState: UIControlState.Normal)
+        buttonFF.setTitleColor(enabledColor, forState: UIControlState.Normal)
+        button8.setTitleColor(disabledColor, forState: UIControlState.Disabled)
+        button9.setTitleColor(disabledColor, forState: UIControlState.Disabled)
+        buttonA.setTitleColor(disabledColor, forState: UIControlState.Disabled)
+        buttonB.setTitleColor(disabledColor, forState: UIControlState.Disabled)
+        buttonC.setTitleColor(disabledColor, forState: UIControlState.Disabled)
+        buttonD.setTitleColor(disabledColor, forState: UIControlState.Disabled)
+        buttonE.setTitleColor(disabledColor, forState: UIControlState.Disabled)
+        buttonF.setTitleColor(disabledColor, forState: UIControlState.Disabled)
+        buttonFF.setTitleColor(disabledColor, forState: UIControlState.Disabled)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -48,26 +68,54 @@ class ViewController: UIViewController {
             // If just finish one calculation, then the screen must be cleared for new input.
             if sender.currentTitle! == "00" {
                 // Of course, in this situation, 00 will be accepted as 0.
-                numberScreen.text = "0"
+                if printMode == 16 {
+                    numberScreen.text = "0x0"
+                } else {
+                    numberScreen.text = "0"
+                }
             } else {
-                numberScreen.text = sender.currentTitle!
+                // Other situations, just replace the printing number.
+                if printMode == 16 {
+                    numberScreen.text = "0x" + sender.currentTitle!
+                } else {
+                    numberScreen.text = sender.currentTitle!
+                }
             }
             justTouchedOperator = false
             return
         }
         
-        if numberScreen.text! == "0" || numberScreen.text! == "0x0" {
+        // If the screen do dot need to refresh.
+        if numberScreen.text! == "0" {
             // If the screen is printing out 0, we need to replace the number.
             if sender.currentTitle! != "00" {
                 // Of course, in this situation, 00 is not accepted.
                 numberScreen.text = sender.currentTitle!
             }
         }
+        else if numberScreen.text! == "0x0" {
+            // If the screen is printing out 0x0, we need to replace the number.
+            if sender.currentTitle! != "00" {
+                // Of course, in this situation, 00 is not accepted.
+                numberScreen.text = "0x" + sender.currentTitle!
+            }
+        }
         else {
             // If the screen already has something to print out, just append the new number.
-            if numberScreen.text!.characters.count < 20 {
-                // But not too long, in detial, not larger than 0xffffffffffffffff (64 bits of 1)
-                numberScreen.text! += sender.currentTitle!
+            var printingStr:String
+            if printMode == 16 {
+                printingStr = numberScreen.text!.substringFromIndex(numberScreen.text!.startIndex.advancedBy(2))
+            } else {
+                printingStr = numberScreen.text!
+            }
+            printingStr += sender.currentTitle!
+            if UInt64(printingStr, radix: printMode) == nil {
+                printingStr = String(UInt64.max, radix: printMode).uppercaseString
+            }
+            if printMode == 16 {
+                numberScreen.text = "0x" + printingStr
+            } else {
+                numberScreen.text = printingStr
             }
         }
     }
@@ -95,7 +143,7 @@ class ViewController: UIViewController {
     
     // "<<", ">>", "1's", "2's", "byte flip", "word flip", "RoL", "RoR"
     @IBAction func instantActions(sender: UIButton) {
-        var printingNumber = UInt64.init(numberScreen.text!)!
+        var printingNumber = UInt64(printMode == 16 ? numberScreen.text!.substringFromIndex(numberScreen.text!.startIndex.advancedBy(2)) : numberScreen.text!, radix: printMode)!
         switch sender.currentTitle! {
         case "<<":
             printingNumber = printingNumber << 1;
@@ -104,7 +152,7 @@ class ViewController: UIViewController {
         case "1's":
             printingNumber = ~printingNumber;
         case "2's":
-            printingNumber = ~printingNumber + 1;
+            printingNumber = ~printingNumber &+ 1;
         case "byte flip":
             // Get bytes
             var buffer = [UInt8]()
@@ -158,21 +206,89 @@ class ViewController: UIViewController {
         default:
             print("Unknown operator in instantAction: \(sender.currentTitle!).\n")
         }
-        numberScreen.text = printingNumber.description
+        if printMode == 16 {
+            numberScreen.text = "0x" + String(printingNumber, radix: printMode)
+        } else {
+            numberScreen.text = String(printingNumber, radix: printMode)
+        }
         justTouchedOperator = true
     }
     
     // "+", "-", "*", "/", "=", "X<<Y", "X>>Y", "AND", "OR", "NOR", "XOR"
     @IBAction func normalCalculationTouched(sender: UIButton) {
-        var printingNumber = UInt64.init(numberScreen.text!)!
+        var printingNumber = UInt64(printMode == 16 ? numberScreen.text!.substringFromIndex(numberScreen.text!.startIndex.advancedBy(2)) : numberScreen.text!, radix: printMode)!
         do {
             try printingNumber = expression.pushOperator(printingNumber, symbol: sender.currentTitle!)
-            numberScreen.text = printingNumber.description
+            if printMode == 16 {
+                numberScreen.text = "0x" + String(printingNumber, radix: printMode)
+            } else {
+                numberScreen.text = String(printingNumber, radix: printMode)
+            }
             justTouchedOperator = true
-        } catch CalculatorError.InvalidOperand(_){
-            numberScreen.text = "0"
         } catch {
-            numberScreen.text = "0"
+            if printMode == 16 {
+                numberScreen.text = "0x0"
+            } else {
+                numberScreen.text = "0"
+            }
+        }
+    }
+    
+    @IBAction func printingModeControl(sender: UISegmentedControl) {
+        let printingNumber = UInt64(printMode == 16 ? numberScreen.text!.substringFromIndex(numberScreen.text!.startIndex.advancedBy(2)) : numberScreen.text!, radix: printMode)!
+        switch sender.selectedSegmentIndex {
+        case 0:
+            printMode = 8
+            numberScreen.text = String(printingNumber, radix: 8)
+            changeNumberPadStatus(8)
+        case 1:
+            printMode = 10
+            numberScreen.text = String(printingNumber, radix: 10)
+            changeNumberPadStatus(10)
+        case 2:
+            printMode = 16
+            numberScreen.text = "0x" + String(printingNumber, radix: 16)
+            changeNumberPadStatus(16)
+        default:
+            print("Unknown mode in printingModeControl: \(sender.selectedSegmentIndex)\n")
+        }
+    }
+    
+    // MARK: tools
+    private func changeNumberPadStatus(radix: Int) {
+        switch radix {
+        case 8:
+            button8.enabled = false
+            button9.enabled = false
+            buttonA.enabled = false
+            buttonB.enabled = false
+            buttonC.enabled = false
+            buttonD.enabled = false
+            buttonE.enabled = false
+            buttonF.enabled = false
+            buttonFF.enabled = false
+        case 10:
+            button8.enabled = true
+            button9.enabled = true
+            buttonA.enabled = false
+            buttonB.enabled = false
+            buttonC.enabled = false
+            buttonD.enabled = false
+            buttonE.enabled = false
+            buttonF.enabled = false
+            buttonFF.enabled = false
+        case 16:
+            button8.enabled = true
+            button9.enabled = true
+            buttonA.enabled = true
+            buttonB.enabled = true
+            buttonC.enabled = true
+            buttonD.enabled = true
+            buttonE.enabled = true
+            buttonF.enabled = true
+            buttonFF.enabled = true
+        default:
+            print("Error while changing number pad statusn")
         }
     }
 }

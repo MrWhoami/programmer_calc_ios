@@ -10,7 +10,6 @@ import Foundation
 
 enum CalculatorError: ErrorType {
     case InvalidOperand(operand: UInt64)
-    case OperandTooLarge
 }
 
 class CalculationStack {
@@ -77,11 +76,26 @@ class CalculationStack {
             var result:UInt64
             switch symbol {
             case "+":
-                result = operandA + operandB
+                let tmp = UInt64.addWithOverflow(operandA, operandB)
+                if tmp.overflow {
+                    result = UInt64.max
+                } else {
+                    result = tmp.0
+                }
             case "-":
-                result = operandA - operandB
+                let tmp = UInt64.subtractWithOverflow(operandA, operandB)
+                if tmp.overflow {
+                    result = UInt64.max
+                } else {
+                    result = tmp.0
+                }
             case "×":
-                result = operandA * operandB
+                let tmp = UInt64.multiplyWithOverflow(operandA, operandB)
+                if tmp.overflow {
+                    result = UInt64.max
+                } else {
+                    result = tmp.0
+                }
             case "÷":
                 guard operandB != 0 else {
                     throw CalculatorError.InvalidOperand(operand: operandB)
