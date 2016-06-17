@@ -33,6 +33,7 @@
                                         <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="Atm-ix-MTx"/>
+                                            <constraint firstAttribute="width" constant="201" id="Nih-Ou-Mku"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -40,11 +41,13 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="Atm-ix-MTx"/>
+                                                <exclude reference="Nih-Ou-Mku"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular">
                                             <mask key="constraints">
                                                 <include reference="Atm-ix-MTx"/>
+                                                <include reference="Nih-Ou-Mku"/>
                                             </mask>
                                         </variation>
                                     </label>
@@ -1253,6 +1256,9 @@
                                         <include reference="DIB-YZ-9re"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="characterModeControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="FKr-TG-gl0"/>
+                                </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="gOl-m8-SCA">
                                 <rect key="frame" x="-60" y="-14" width="121" height="29"/>

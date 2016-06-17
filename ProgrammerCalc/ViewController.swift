@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var buttonFF: UIButton!
     
     var printMode = 10
+    var characterMode = "None"
     var expression = CalculationStack()
     var justTouchedOperator = false
     let disabledColor = UIColor.lightGrayColor()
@@ -82,6 +83,7 @@ class ViewController: UIViewController {
                 }
             }
             justTouchedOperator = false
+            refreshCharacterScreen()
             return
         }
         
@@ -118,6 +120,7 @@ class ViewController: UIViewController {
                 numberScreen.text = printingStr
             }
         }
+        refreshCharacterScreen()
     }
     
     // C button at left-top.
@@ -128,6 +131,7 @@ class ViewController: UIViewController {
             numberScreen.text = "0"
         }
         justTouchedOperator = false
+        refreshCharacterScreen()
     }
     
     // AC button
@@ -139,6 +143,7 @@ class ViewController: UIViewController {
         }
         expression.clearStack()
         justTouchedOperator = false
+        refreshCharacterScreen()
     }
     
     // "<<", ">>", "1's", "2's", "byte flip", "word flip", "RoL", "RoR"
@@ -158,7 +163,7 @@ class ViewController: UIViewController {
             var buffer = [UInt8]()
             var highest = 0
             for i in 0...7 {
-                buffer[i] = UInt8(printingNumber >> UInt64(i * 8))
+                buffer.append(UInt8(printingNumber >> UInt64(i * 8) & 0xff))
                 highest = buffer[i] == 0 ? highest : i
             }
             // Flip bytes
@@ -177,7 +182,7 @@ class ViewController: UIViewController {
             var buffer = [UInt16]()
             var highest = 0
             for i in 0...3 {
-                buffer[i] = UInt16(printingNumber >> UInt64(i * 16))
+                buffer.append(UInt16(printingNumber >> UInt64(i * 16) & 0xffff))
                 highest = buffer[i] == 0 ? highest : i
             }
             // Flip words
@@ -212,6 +217,7 @@ class ViewController: UIViewController {
             numberScreen.text = String(printingNumber, radix: printMode)
         }
         justTouchedOperator = true
+        refreshCharacterScreen()
     }
     
     // "+", "-", "*", "/", "=", "X<<Y", "X>>Y", "AND", "OR", "NOR", "XOR"
@@ -232,6 +238,7 @@ class ViewController: UIViewController {
                 numberScreen.text = "0"
             }
         }
+        refreshCharacterScreen()
     }
     
     @IBAction func printingModeControl(sender: UISegmentedControl) {
@@ -254,7 +261,18 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func characterModeControl(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            characterMode = "ascii"
+        default:
+            characterMode = "unicode"
+        }
+        refreshCharacterScreen()
+    }
+    
     // MARK: tools
+    // Change number pad status while the printing mode changed.
     private func changeNumberPadStatus(radix: Int) {
         switch radix {
         case 8:
@@ -289,6 +307,33 @@ class ViewController: UIViewController {
             buttonFF.enabled = true
         default:
             print("Error while changing number pad statusn")
+        }
+    }
+    
+    // Determine what the character screen prints.
+    private func refreshCharacterScreen() {
+        let printingNumber = UInt64(printMode == 16 ? numberScreen.text!.substringFromIndex(numberScreen.text!.startIndex.advancedBy(2)) : numberScreen.text!, radix: printMode)!
+        switch characterMode {
+        case "ascii":
+            var array = [Character]()
+            for i in 0...7 {
+                let tmp = UInt8(printingNumber >> UInt64(8 * (7 - i)) & 0xff)
+                if (tmp >= 0x20 && tmp < 0x80) {
+                    array.append(Character(UnicodeScalar(tmp)))
+                }
+            }
+            characterScreen.text = String(array)
+        case "unicode":
+            var array = [Character]()
+            for i in 0...3 {
+                let tmp = UInt16(printingNumber >> UInt64(16 * (3 - i)) & 0xffff)
+                if (tmp != 0) {
+                    array.append(Character(UnicodeScalar(tmp)))
+                }
+            }
+            characterScreen.text = String(array)
+        default:
+            characterScreen.text = ""
         }
     }
 }
